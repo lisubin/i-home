@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>更新Banner</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">更新Banner</div>
+    <div class="panel-body">
+        <form action="/banner/update" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:value="${banner.id}">
+
+            <div class="form-group">
+                <label class="col-md-1 control-label">名称</label>
+                <div class="col-md-5">
+                    <input class="form-control" type="text" name="name" th:value="${banner.name}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-1 control-label">图片</label>
+                <div class="col-md-5">
+                    <input class="form-control" type="hidden" name="img" th:value="${banner.img}">
+                    <img th:src="${banner.img}" th:width="250px" id="img">
+                    <input class="form-control" type="file" name="imgFile" id="imgFile">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-1 control-label">链接地址</label>
+                <div class="col-md-5">
+                    <input class="form-control"  type="text" name="url" th:value="${banner.url}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-11">
+                    <button type="submit" class="btn btn-default">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $('#imgFile').bind('change', function () {
+
+        //读取到base64编码的字符串
+        //$('#img').attr("src", 'fil:e///' + $(this).val());
+    })
+
+</script>
+</body>
+</html>

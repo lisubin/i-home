@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">Banner列表</div>
+    <div class="panel-body">
+
+        <!--新增链接-->
+        <div style="margin-top: 5px;">
+            <a class="btn btn-primary" href="/banner/add">新增</a>
+        </div>
+        <div id="info"></div>
+
+        <!--列表模板-->
+        <table class="table table-bordered" style="margin-top: 5px;">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>地址</th>
+                <th>链接地址</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr th:each="banner:${bannerList}">
+                <td th:text="${banner.name}"></td>
+                <td th:text="${banner.img}"></td>
+                <td th:text="${banner.url}"></td>
+                <td>
+                    <a th:href="@{/banner/update(id=${banner.id})}">修改</a> |
+                    <a href="javascript:void(0)" th:id="${banner.id}" class="del">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('.del').click(function () {
+        if (window.confirm('确认要删除该行数据?')) {
+            $.ajax({
+                url: "/banner/delete?id=" + $(this).attr('id'),
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    alert(data.msg);
+                    if (data.code== 0) {
+                        setTimeout(function () {
+                            window.location.href = "/banner/list";
+                        }, 1000);
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
